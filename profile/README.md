@@ -2,15 +2,23 @@
 
 <p align="center">
   <img
-    alt="Blekline — Layer 4 ingress control plane"
+    alt="Blekline — Zero-trust execution plane for AI agents"
     src="./blekline_readme-main.png"
     width="100%"
   />
 </p>
 
-**Blekline is the open-core MCP ingress control plane for governed AI agents** — mask prompts, enforce tool policy, and audit metadata **before** traffic reaches LLMs, downstream MCP tools, and L1 sandboxes (Daytona, Modal, E2B, Cloudflare, Vercel Sandbox).
+**Zero-trust execution plane for AI agents.**
 
-Run it in Cursor, Claude Desktop, or Codex in minutes with `@blekline/mcp-server`, or sit `@blekline/mcp-proxy` in front of any downstream MCP. Apache SDK for embed; AGPL server/proxy for self-host or [cloud](https://app.blekline.com).
+*Blekline is NHIM + open-core AI runtime enforcement* — it governs every prompt, model API, and tool call at the agent boundary. Mask secrets and PII, enforce tool policy, and audit metadata **before** traffic reaches LLMs, downstream MCP tools, and L1 sandboxes (Daytona, Modal, E2B, Cloudflare, Vercel Sandbox).
+
+Run it in Cursor, Claude Desktop, or Codex in minutes with `@blekline/mcp-server`, sit `@blekline/mcp-proxy` in front of any downstream MCP, or deploy the **ingress sidecar** for edge mask + enforce. Apache SDK for embed; AGPL server/proxy for self-host or [cloud](https://app.blekline.com).
+
+| Open source ([blekline-oss](https://github.com/Blekline/blekline-oss)) | Enterprise (NHIM image) |
+| --- | --- |
+| MCP server, proxy, contracts, SDK | Trust Vault (stateful tokenization in VPC) |
+| Ingress sidecar shell + Helm | Lineage Firewall engine |
+| Cursor hooks | Runtime crypto + admission webhook |
 
 **Blekline Cloud** adds authoritative Azure PII masking, workspace fleet policy (SSE), investigations, and billing — for teams moving agents from pilot to production.
 
@@ -20,6 +28,7 @@ Run it in Cursor, Claude Desktop, or Codex in minutes with `@blekline/mcp-server
 
 | | Link |
 |---|------|
+| **Website** | [blekline.com](https://blekline.com) |
 | **Open source** | [github.com/Blekline/blekline-oss](https://github.com/Blekline/blekline-oss) |
 | **Documentation** | [app.blekline.com/docs](https://app.blekline.com/docs/introduction/quick-start) |
 | **Cloud workspace** | [app.blekline.com](https://app.blekline.com) |
@@ -83,6 +92,7 @@ In the agent: *"Use blekline_mask_prompt on: Contact Jane at jane@acme.com — A
 </p>
 
 <p align="center">
+  <a href="https://blekline.com">Website</a> ·
   <a href="https://app.blekline.com">Cloud</a> ·
   <a href="https://app.blekline.com/docs/introduction/quick-start">Docs</a> ·
   <a href="https://github.com/Blekline/blekline-oss/discussions">Discussions</a> ·
