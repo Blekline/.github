@@ -3,9 +3,9 @@
 <p align="center">
   <a href="https://blekline.com">
     <img
-      alt="Blekline — workflow execution infrastructure for platform teams"
-      src="https://github.com/Blekline/blekline-oss/raw/main/assets/images/blekline-oss-og.png"
-      width="100%"
+      alt="Blekline"
+      src="https://github.com/Blekline/blekline-oss/raw/main/assets/images/blekline-logo-dark.svg"
+      width="320"
     />
   </a>
 </p>
