@@ -1,26 +1,26 @@
 # Welcome to Blekline
 
 <p align="center">
-  <img
-    alt="Blekline — Zero-trust execution plane for AI agents"
-    src="./blekline_readme-main.png"
-    width="100%"
-  />
+  <a href="https://blekline.com">
+    <img
+      alt="Blekline — workflow execution infrastructure for platform teams"
+      src="https://github.com/Blekline/blekline-oss/raw/main/assets/images/blekline-oss-og.png"
+      width="100%"
+    />
+  </a>
 </p>
 
-**Zero-trust execution plane for AI agents.**
+**Blekline is workflow execution infrastructure for AI actions.** Platform teams publish runtime policy, start **act runs**, and run steps in short-lived **cells** in **your cloud**. Ingress clients mask prompts, enforce tool calls, and record **metadata-first audit** before traffic reaches models and downstream MCP tools.
 
-*Blekline is NHIM + open-core AI runtime enforcement* — it governs every prompt, model API, and tool call at the agent boundary. Mask secrets and PII, enforce tool policy, and audit metadata **before** traffic reaches LLMs, downstream MCP tools, and L1 sandboxes (Daytona, Modal, E2B, Cloudflare, Vercel Sandbox).
+This org ships **[blekline-oss](https://github.com/Blekline/blekline-oss)** (clients, contracts, and agent ingress). **Cells run on [app.blekline.com](https://app.blekline.com)** (hosted or connected compute).
 
-Run it in Cursor, Claude Desktop, or Codex in minutes with `@blekline/mcp-server`, sit `@blekline/mcp-proxy` in front of any downstream MCP, or deploy the **ingress sidecar** for edge mask + enforce. Apache SDK for embed; AGPL server/proxy for self-host or [cloud](https://app.blekline.com).
+Connect Cursor, Claude Desktop, Codex, or your own agents with `@blekline/mcp-server` and `@blekline/mcp-proxy`, or embed the Apache SDK. Use [Blekline Cloud](https://app.blekline.com) for workspaces, fleet policy, investigations, and billing.
 
-| Open source ([blekline-oss](https://github.com/Blekline/blekline-oss)) | Enterprise (NHIM image) |
+| Open source ([blekline-oss](https://github.com/Blekline/blekline-oss)) | Platform |
 | --- | --- |
-| MCP server, proxy, contracts, SDK | Trust Vault (stateful tokenization in VPC) |
-| Ingress sidecar shell + Helm | Lineage Firewall engine |
-| Cursor hooks | Runtime crypto + admission webhook |
-
-**Blekline Cloud** adds authoritative Azure PII masking, workspace fleet policy (SSE), investigations, and billing — for teams moving agents from pilot to production.
+| MCP server, proxy, contracts, SDK | Workflows, act runs, cells |
+| Cursor / Codex hooks | Policy compile at run start |
+| `cluster-posture` CLI | Metadata audit and investigations |
 
 ---
 
@@ -30,35 +30,39 @@ Run it in Cursor, Claude Desktop, or Codex in minutes with `@blekline/mcp-server
 |---|------|
 | **Website** | [blekline.com](https://blekline.com) |
 | **Open source** | [github.com/Blekline/blekline-oss](https://github.com/Blekline/blekline-oss) |
-| **Documentation** | [app.blekline.com/docs](https://app.blekline.com/docs/introduction/quick-start) |
+| **First workflow run** | [app.blekline.com/docs/workflows-and-runs](https://app.blekline.com/docs/workflows-and-runs) |
+| **Documentation** | [app.blekline.com/docs](https://app.blekline.com/docs) |
 | **Cloud workspace** | [app.blekline.com](https://app.blekline.com) |
 | **Community** | [Discussions](https://github.com/Blekline/blekline-oss/discussions) · [Design partner intake](https://github.com/Blekline/blekline-oss/issues/new?template=design_partner.yml) |
-| **npm** | [`@blekline/mcp-server`](https://www.npmjs.com/package/@blekline/mcp-server) · [`@blekline/mcp-proxy`](https://www.npmjs.com/package/@blekline/mcp-proxy) |
+| **npm** | [`@blekline/init`](https://www.npmjs.com/package/@blekline/init) · [`@blekline/client`](https://www.npmjs.com/package/@blekline/client) · [`@blekline/mcp-server`](https://www.npmjs.com/package/@blekline/mcp-server) |
 
 ### Guides worth reading
 
-- [Why ingress governance](https://app.blekline.com/docs/introduction/why-ingress) — the Layer 4 gap between agents and runtimes
-- [AI Enablement Stack](https://app.blekline.com/docs/introduction/ai-enablement-stack) — where Blekline sits (L4) vs sandboxes (L1) and agents (L5)
-- [MCP proxy](https://app.blekline.com/docs/mcp/proxy) — allow / mask / block tool args before downstream MCP
+- [Workflows and runs](https://app.blekline.com/docs/workflows-and-runs) — act runs, cells, and your cloud
+- [Runtime policy](https://app.blekline.com/docs/runtime-policy) — publish policy before execution
+- [AI Enablement Stack](https://app.blekline.com/docs/introduction/architecture) — where Blekline sits vs sandboxes and agents
+- [MCP proxy](https://app.blekline.com/docs/mcp/proxy) — allow, mask, and block tool args before downstream MCP
+- [Interaction governance](https://app.blekline.com/docs/introduction/interaction-governance) — mask and enforce at the agent boundary
 - [Trust boundaries](https://app.blekline.com/docs/security/trust-boundaries) — what leaves your perimeter
-- [EU AI Act & compliance](https://app.blekline.com/docs/introduction/eu-ai-act) — oversight, audit, and tool transparency
-- [Sandbox providers](https://app.blekline.com/docs/integrations/sandbox-providers) — Daytona, Modal, E2B, Cloudflare, Vercel Sandbox
 
 Read the full doc index at **[app.blekline.com/docs](https://app.blekline.com/docs)**.
 
 ---
 
-### Get started in 2 minutes
+### First act run (~60 seconds)
 
-Local MCP server (workspace token from [app.blekline.com](https://app.blekline.com) → Admin → API keys):
+[Create a workspace](https://app.blekline.com/auth/signup), add an API key with **runs:write**, publish [runtime policy](https://app.blekline.com/docs/runtime-policy), then:
 
 ```bash
+npx -y @blekline/init
 export BLEKLINE_WORKSPACE_TOKEN="blw_..."
 export BLEKLINE_API_URL="https://app.blekline.com"
-npx -y @blekline/mcp-server
+export BLEKLINE_WORKFLOW_ID="wf_your_workflow_id"
 ```
 
-**Cursor** — add to `.cursor/mcp.json`:
+Guide: [Run first workflow](https://app.blekline.com/docs/workflows-and-runs) · Example: [first-act-run](https://github.com/Blekline/blekline-oss/tree/main/examples/cells/first-act-run)
+
+**Cursor ingress** — add to `.cursor/mcp.json`:
 
 ```json
 {
@@ -77,8 +81,6 @@ npx -y @blekline/mcp-server
 
 In the agent: *"Use blekline_mask_prompt on: Contact Jane at jane@acme.com — API key AKIAIOSFODNN7EXAMPLE"*
 
-**Proxy + sandbox** — [Daytona stack](https://app.blekline.com/docs/integrations/daytona-stack) · [All sandbox providers](https://app.blekline.com/docs/integrations/sandbox-providers)
-
 ---
 
 <p align="center">
@@ -94,7 +96,7 @@ In the agent: *"Use blekline_mask_prompt on: Contact Jane at jane@acme.com — A
 <p align="center">
   <a href="https://blekline.com">Website</a> ·
   <a href="https://app.blekline.com">Cloud</a> ·
-  <a href="https://app.blekline.com/docs/introduction/quick-start">Docs</a> ·
+  <a href="https://app.blekline.com/docs">Docs</a> ·
   <a href="https://github.com/Blekline/blekline-oss/discussions">Discussions</a> ·
   <a href="https://github.com/Blekline/blekline-oss/issues/new?template=design_partner.yml">Design partners</a>
 </p>
